@@ -13,88 +13,132 @@
 <meta property="og:image" content="https://codeadanus.github.io/bister-bilal-analiz/kapak-bg.png">
 <meta property="og:type" content="website">
 
+
 <style>
-
-body{
-background:#050505;
-margin:0;
-font-family:Arial;
-color:white;
+body {
+	background: #050505;
+	margin: 0;
+	font-family: 'Segoe UI', Arial, sans-serif;
+	color: #fff;
 }
-
-/* kitap container */
-
-.reader{
-
-max-width:900px;
-margin:auto;
-padding:30px;
-
+.reader {
+	max-width: 480px;
+	margin: 0 auto;
+	padding: 32px 8px 16px 8px;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
-
-/* header */
-
-.header{
-
-display:flex;
-justify-content:space-between;
-color:#aaa;
-margin-bottom:10px;
-
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #bbb;
+	font-size: 1rem;
+	margin-bottom: 18px;
+	letter-spacing: 0.02em;
 }
-
-/* kitap sayfa kutusu */
-
-.book{
-
-background:black;
-border-radius:6px;
-overflow:hidden;
-box-shadow:0 0 50px rgba(0,0,0,0.9);
-
+.book {
+	position: relative;
+	background: #181818;
+	border-radius: 18px;
+	overflow: hidden;
+	box-shadow: 0 0 32px 4px #0a0a0a, 0 0 0 4px #222 inset, 0 0 24px 2px #00ffe7aa;
+	min-height: 420px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
 }
-
-.book img{
-
-width:100%;
-display:block;
-
+.book-bg {
+	position: absolute;
+	top: 0; left: 0; width: 100%; height: 100%;
+	object-fit: cover;
+	z-index: 1;
+	filter: brightness(0.7) blur(0.5px);
+	transition: opacity 0.3s;
 }
-
-/* footer */
-
-.footer{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-top:10px;
-
+.book-overlay {
+	position: absolute;
+	top: 0; left: 0; width: 100%; height: 100%;
+	background: linear-gradient(180deg,rgba(10,10,10,0.7) 0%,rgba(10,10,10,0.85) 100%);
+	z-index: 2;
 }
-
-button{
-
-background:#111;
-color:white;
-border:none;
-padding:10px 20px;
-border-radius:5px;
-cursor:pointer;
-
+.book-content {
+	position: relative;
+	z-index: 3;
+	padding: 36px 28px 32px 28px;
+	color: #fff;
+	text-shadow: 0 2px 8px #000b, 0 0 1px #00ffe744;
+	font-size: 1.13rem;
+	line-height: 1.7;
+	letter-spacing: 0.01em;
+	min-height: 180px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
-
-button:hover{
-
-background:#333;
-
+.book-title {
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin-bottom: 12px;
+	color: #00ffe7;
+	letter-spacing: 0.04em;
+	text-shadow: 0 2px 8px #000b, 0 0 1px #00ffe7aa;
 }
-
-.pageNum{
-
-color:#aaa;
-
+.footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 18px;
+	gap: 8px;
 }
-
+button {
+	background: linear-gradient(90deg,#111 60%,#222 100%);
+	color: #fff;
+	border: none;
+	padding: 10px 22px;
+	border-radius: 7px;
+	cursor: pointer;
+	font-size: 1rem;
+	font-weight: 500;
+	box-shadow: 0 2px 8px #0004;
+	transition: background 0.2s, box-shadow 0.2s;
+}
+button:hover {
+	background: #00ffe7;
+	color: #181818;
+	box-shadow: 0 0 12px #00ffe7aa;
+}
+.pageNum {
+	color: #aaa;
+	font-size: 1.05rem;
+	font-weight: 400;
+	letter-spacing: 0.04em;
+}
+@media (max-width: 600px) {
+	.reader {
+		max-width: 100vw;
+		padding: 8px 0 0 0;
+	}
+	.book {
+		min-height: 320px;
+		border-radius: 10px;
+	}
+	.book-content {
+		padding: 18px 8px 18px 8px;
+		font-size: 1rem;
+	}
+	.header {
+		font-size: 0.98rem;
+		margin-bottom: 10px;
+	}
+	.footer {
+		margin-top: 10px;
+	}
+}
 </style>
 
 </head>
@@ -110,10 +154,14 @@ color:#aaa;
 
 </div>
 
+
 <div class="book">
-
-<img id="page" src="kapak-bg.png">
-
+	<img id="page-bg" class="book-bg" src="kapak-bg.png" alt="Sayfa arka planı">
+	<div class="book-overlay"></div>
+	<div class="book-content">
+		<div class="book-title" id="page-title"></div>
+		<div id="page-content"></div>
+	</div>
 </div>
 
 <div class="footer">
@@ -128,63 +176,93 @@ color:#aaa;
 
 </div>
 
-<script>
-
-/* tarih */
-
-const d = new Date()
-
-document.getElementById("date").innerText =
-d.getDate()+" "+
-["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"][d.getMonth()]+" "+
 d.getFullYear()
-
-/* sayfalar */
-
-const pages=[
-
-"kapak-bg.png",
-"page1-bg.png",
-"page2-bg.png",
-"page3-bg.png",
-"page4-bg.png",
-"page5-bg.png"
-
-]
-
-let p=0
-
-function update(){
-
 document.getElementById("page").src=pages[p]
-
 document.getElementById("num").innerText=
-(p+1)+" / "+pages.length
-
-}
-
-function next(){
-
-if(p<pages.length-1){
-
 p++
-update()
-
-}
-
-}
-
-function prev(){
-
-if(p>0){
-
 p--
-update()
 
+<script>
+// Türkçe tarih
+const d = new Date();
+document.getElementById("date").innerText =
+	d.getDate() + " " +
+	["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"][d.getMonth()] + " " +
+	d.getFullYear();
+
+// Sayfa veri modeli
+const pages = [
+	{
+		id: 1,
+		date: "Mart 2026",
+		title: "Ortadoğu'da Ateş Çemberi",
+		backgroundImage: "kapak-bg.png",
+		content: `<b>Petrodolar sisteminin Ortadoğu üzerindeki etkisi</b><br><br>Bu analiz serisinde, bölgedeki ekonomik ve politik dinamikler inceleniyor.`
+	},
+	{
+		id: 2,
+		date: "Mart 2026",
+		title: "Petrol ve Dolar İlişkisi",
+		backgroundImage: "page1-bg.png",
+		content: `Petrol fiyatları ve dolar arasındaki ilişki, küresel piyasaları doğrudan etkiler. <br><br>ABD'nin para politikaları ve enerji stratejileri, Ortadoğu'daki dengeleri belirler.`
+	},
+	{
+		id: 3,
+		date: "Mart 2026",
+		title: "Jeopolitik Riskler",
+		backgroundImage: "page2-bg.png",
+		content: `Ortadoğu'daki jeopolitik riskler, yatırımcılar için hem tehdit hem de fırsat sunar. <br><br>Analizlerimizde, bölgedeki son gelişmelerin borsa üzerindeki etkilerini bulabilirsiniz.`
+	},
+	{
+		id: 4,
+		date: "Mart 2026",
+		title: "Enerji ve Finans",
+		backgroundImage: "page3-bg.png",
+		content: `Enerji piyasalarındaki dalgalanmalar, finansal araçların fiyatlamasında belirleyici rol oynar. <br><br>Uzman görüşleriyle, yatırım stratejilerinizi güçlendirin.`
+	},
+	{
+		id: 5,
+		date: "Mart 2026",
+		title: "Borsa Akademi Yorumu",
+		backgroundImage: "page4-bg.png",
+		content: `Bister Bilal Borsa Akademi ekibi, Ortadoğu analizlerini sizler için derledi. <br><br>Her sayfada öne çıkan başlıklar ve özetler yer alıyor.`
+	},
+	{
+		id: 6,
+		date: "Mart 2026",
+		title: "Sonuç ve Öneriler",
+		backgroundImage: "page5-bg.png",
+		content: `Analiz serimizin sonunda, yatırımcılara yönelik özet öneriler ve dikkat edilmesi gereken noktalar sunuluyor.`
+	}
+];
+
+let p = 0;
+
+function update() {
+	const page = pages[p];
+	document.getElementById("page-bg").src = page.backgroundImage;
+	document.getElementById("page-bg").alt = page.title;
+	document.getElementById("page-title").innerHTML = page.title;
+	document.getElementById("page-content").innerHTML = page.content;
+	document.getElementById("num").innerText = (p + 1) + " / " + pages.length;
 }
 
+function next() {
+	if (p < pages.length - 1) {
+		p++;
+		update();
+	}
 }
 
+function prev() {
+	if (p > 0) {
+		p--;
+		update();
+	}
+}
+
+// İlk yüklemede güncelle
+update();
 </script>
 
 </body>
