@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Bister Bilal Analiz</title>
+
+<style>
+
+body{
+background:#050505;
+color:#eaeaea;
+font-family:Georgia,serif;
+margin:0;
+display:flex;
+justify-content:center;
+}
+
+.reader{
+width:900px;
+padding:40px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+margin-bottom:20px;
+color:#bbb;
+}
+
+.page{
+background:#111;
+padding:40px;
+border-radius:12px;
+line-height:1.8;
+box-shadow:0 0 40px rgba(255,180,80,0.15);
+}
+
+h1{
+font-size:30px;
+margin-bottom:20px;
+}
+
+h2{
+margin-top:30px;
+}
+
+.footer{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+}
+
+button{
+background:#222;
+border:none;
+padding:10px 20px;
+color:white;
+cursor:pointer;
+border-radius:6px;
+}
+
+button:hover{
+background:#444;
+}
+
+.counter{
+color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="reader">
+
+<div class="header">
+<div>Bister Bilal Borsa Akademi</div>
+<div id="date"></div>
+</div>
+
+<div class="page" id="page-content"></div>
+
+<div class="footer">
+<button onclick="prevPage()">← Önceki</button>
+<div class="counter" id="counter"></div>
+<button onclick="nextPage()">Sonraki →</button>
+</div>
+
+</div>
+
+<script>
+
+document.getElementById("date").innerText =
+new Date().toLocaleDateString("tr-TR");
+
+let pages=[
+
+`<h1>Ortadoğu'da Ateş Çemberi</h1>
+
+<p>Son günlerde Ortadoğu'da yaşananlar, ilk bakışta ABD-İsrail ittifakı ile İran arasında bir savaş gibi görünüyor. Fakat yangının haritasına dikkatlice bakınca, asıl acıyı çekenin İran olmadığı anlaşılıyor.</p>
+
+<p>Alevlerin yükseldiği ülkeler: Suudi Arabistan, Birleşik Arap Emirlikleri (BAE), Katar, Kuveyt, Bahreyn...</p>
+
+<h2>Petrodoların 50 Yıllık Saltanatı</h2>
+
+<p>Hikaye 1974'e, Henry Kissinger ile Suudi Kralı Faysal arasında yapılan gizli bir anlaşmaya dayanır...</p>
+
+<p>Bu sistemi bir mahalle bakkalı gibi düşünün...</p>
+
+<p>Peki ya biri bu sisteme meydan okursa...</p>
+
+<br>
+<strong>BİLAL AKSOY</strong>
+<br>Kurucu & Baş Analist
+`,
+
+`<h1>Petrol ve Dolar</h1>
+<p>Petrol ticareti küresel finansın merkezindedir.</p>`,
+
+`<h1>Jeopolitik Risk</h1>
+<p>Enerji yolları üzerindeki gerilimler piyasaları doğrudan etkiler.</p>`,
+
+`<h1>Enerji ve Finans</h1>
+<p>Enerji altyapısının hedef alınması küresel ticareti sarsar.</p>`,
+
+`<h1>Sonuç</h1>
+<p>Jeopolitik krizler yatırımcılar için risk olduğu kadar fırsatlar da yaratır.</p>`
+
+];
+
+let current=0;
+
+function render(){
+document.getElementById("page-content").innerHTML=pages[current];
+document.getElementById("counter").innerText=(current+1)+" / "+pages.length;
+}
+
+function nextPage(){
+if(current<pages.length-1){current++;render();}
+}
+
+function prevPage(){
+if(current>0){current--;render();}
+}
+
+render();
+
+</script>
+
+</body>
+</html>
