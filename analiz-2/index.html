@@ -5,12 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Görünmeyen Cephe: Ortadoğu'nun Dijital Savaş Anatomisi | Bister Bilal Analiz</title>
 
+  <meta name="description" content="Ortadoğu'da dijital altyapı, veri merkezleri, finans, sağlık, petrol ve istihbarat sistemleri üzerinden şekillenen yeni savaşın anatomisi.">
   <meta property="og:title" content="Görünmeyen Cephe: Ortadoğu'nun Dijital Savaş Anatomisi">
   <meta property="og:description" content="Ortadoğu'da dijital altyapı, veri merkezleri, finans, sağlık, petrol ve istihbarat sistemleri üzerinden şekillenen yeni savaşın anatomisi.">
   <meta property="og:image" content="https://bbamarketlab.github.io/bister-bilal-analiz/analiz-2/1.png">
   <meta property="og:url" content="https://bbamarketlab.github.io/bister-bilal-analiz/analiz-2/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="BBA MarketLab Research">
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Article",
+    "headline":"Görünmeyen Cephe: Ortadoğu'nun Dijital Savaş Anatomisi",
+    "description":"Ortadoğu'da dijital altyapı, veri merkezleri, finans, sağlık, petrol ve istihbarat sistemleri üzerinden şekillenen yeni savaşın anatomisi.",
+    "image":["https://bbamarketlab.github.io/bister-bilal-analiz/analiz-2/1.png"],
+    "author":{
+      "@type":"Person",
+      "name":"Bilal Aksoy"
+    },
+    "publisher":{
+      "@type":"Organization",
+      "name":"BBA MarketLab Research"
+    },
+    "mainEntityOfPage":"https://bbamarketlab.github.io/bister-bilal-analiz/analiz-2/",
+    "datePublished":"2026-03-15",
+    "dateModified":"2026-03-15"
+  }
+  </script>
 
   <style>
     :root{
@@ -24,16 +46,22 @@
       --cyan:#7fd7ff;
       --line:rgba(255,255,255,.08);
       --shadow:0 0 40px rgba(217,180,107,.08);
+      --violet:#d8b4ff;
+      --violet-strong:rgba(168,85,247,.55);
+      --violet-soft:rgba(168,85,247,.38);
     }
 
     *{box-sizing:border-box}
+
     html,body{
       margin:0;
       padding:0;
       background:radial-gradient(circle at top,#111827 0%,#07090d 45%,#030406 100%);
       color:var(--text);
       font-family:Georgia, "Times New Roman", serif;
+      overflow-x:hidden;
     }
+
     body{min-height:100vh}
 
     .shell{
@@ -70,6 +98,7 @@
       transition:.18s;
       box-shadow:0 0 0 #0000;
     }
+
     .side-nav button.active{
       background:linear-gradient(180deg,#ffe7b0 0%, #d9b46b 100%);
       color:#181818;
@@ -158,6 +187,8 @@
       object-fit:cover;
       filter:brightness(.78) contrast(1.08) saturate(1.12);
       transform:scale(1.02);
+      transition:opacity .36s ease, transform .5s ease;
+      opacity:1;
     }
 
     .page-overlay{
@@ -176,10 +207,23 @@
       z-index:2;
       max-width:860px;
       padding:42px 38px 54px;
+      transition:opacity .30s ease, transform .36s ease;
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .page-content.is-leaving{
+      opacity:0;
+      transform:translateY(10px);
+    }
+
+    .page-bg.is-leaving{
+      opacity:.2;
+      transform:scale(1.04);
     }
 
     .page-title{
-      margin:0 0 10px;
+      margin:0 0 18px;
       font-size:clamp(44px, 5vw, 72px);
       line-height:1.08;
       font-weight:900;
@@ -194,9 +238,12 @@
       font-size:clamp(24px, 2.5vw, 38px);
       line-height:1.15;
       font-weight:800;
-      color:var(--gold);
-      text-shadow:0 0 18px #d9b46b88, 0 2px 10px #000a;
-      filter: drop-shadow(0 0 8px #d9b46b55);
+      color:var(--violet);
+      text-shadow:
+        0 0 10px var(--violet-strong),
+        0 0 22px rgba(168,85,247,.42),
+        0 2px 10px rgba(0,0,0,.45);
+      filter: drop-shadow(0 0 10px var(--violet-soft));
     }
 
     .page-content p,
@@ -211,25 +258,6 @@
     .page-content ul{
       margin:0 0 16px 26px;
       padding:0;
-    }
-
-    .article-author{
-      margin:10px 0 24px;
-    }
-
-    .article-author .author-name{
-      font-size:20px;
-      font-weight:700;
-      color:#f7f8fb;
-      text-shadow:0 1px 3px rgba(0,0,0,.35);
-    }
-
-    .article-author .author-role{
-      font-family:Arial, Helvetica, sans-serif;
-      color:#d8deea;
-      font-size:15px;
-      letter-spacing:.2px;
-      margin-top:3px;
     }
 
     .page-content .author{
@@ -379,7 +407,7 @@
     <main class="viewer">
       <div class="viewer-header">
         <div class="brand-pill">Bister Bilal Borsa Akademi</div>
-        <div class="date">14.03.2026</div>
+        <div class="date" id="publishDate"></div>
       </div>
 
       <div class="page-wrap">
@@ -404,10 +432,6 @@
         bg: "1.png",
         html: `
           <h1 class="page-title">Giriş: Görünmeyen Cephe</h1>
-          <div class="article-author">
-            <div class="author-name">Bilal Aksoy</div>
-            <div class="author-role">Kurucu & Baş Analist</div>
-          </div>
           <p>Bir savaş düşünün. Ne tanklar gürlüyor ne de askerler siperlerde. İlk darbe, bir hastanenin ameliyathanesinde ışıkların sönmesiyle geliyor. Ardından bankamatikler ekranlarını siyaha bürüyor. Uçaklar pistte bekliyor ama kalkış izni yok. Petrol kulelerinde vanalar duruyor. Ve siz, elinizdeki telefonla ne olduğunu anlamaya çalışırken aslında bir bölgenin tamamı dijital bir kışa gömülüyor.</p>
           <p>İran'ın son açıklamasıyla birlikte, Ortadoğu'nun üzerinde yeni bir tehdit dolaşıyor. Bu tehdit, Hürmüz Boğazı'ndaki bir mayna ya da bir petrol kuyusuna atılan füzeyle sınırlı değil. Hedefte, bölgenin görünmez can damarları var: Microsoft, Google, Oracle, Nvidia, IBM ve Palantir.</p>
           <p>Bu şirketlerin isimleri çoğumuza tanıdık gelir. Bilgisayar ekranlarında gördüğümüz logolar, kullandığımız yazılımlar… Ancak onların Ortadoğu'daki asıl rolleri, birer perakende markası olmanın çok ötesinde. Onlar, modern bir ülkenin çalışması için gerekli olan dijital oksijeni sağlıyor. Ve eğer bu oksijen kesilirse, Körfez ülkeleri tek bir füze binayı yıkmadan felç olabilir.</p>
@@ -417,10 +441,6 @@
         bg: "2.png",
         html: `
           <h1 class="page-title">Altı Şirket, Tek Bir Nabız</h1>
-          <div class="article-author">
-            <div class="author-name">Bilal Aksoy</div>
-            <div class="author-role">Kurucu & Baş Analist</div>
-          </div>
           <p>Ortadoğu'nun dijital kalbinin nerede attığını biliyor musunuz? Fiziksel binalarda değil, devasa veri merkezlerinde. Bu merkezler, bölgenin bankacılık sisteminden havalimanlarının kulelerine, hastanelerin hasta kayıtlarından petrol devlerinin üretim panolarına kadar her şeyi yönetiyor.</p>
           <p>Şimdi bu altı şirketin bölgedeki ayak izlerine yakından bakalım:</p>
           <ul>
@@ -437,10 +457,6 @@
         bg: "3.png",
         html: `
           <h1 class="page-title">Çöküntünün Anatomisi: Finans ve Sağlık</h1>
-          <div class="article-author">
-            <div class="author-name">Bilal Aksoy</div>
-            <div class="author-role">Kurucu & Baş Analist</div>
-          </div>
           <p>Diyelim ki İran, bu şirketlerin bölgedeki kritik veri merkezlerini hedef alan bir saldırı düzenledi. İlk anda ne olur?</p>
           <h2 class="page-subtitle">Finansal Sistem Donuyor</h2>
           <p>Dubai, Doha ya da Riyad'da bir sabah uyandığınızda ATM'lerin çalışmadığını görün. Kredi kartınızı bir restoranda ödeme yapmak istediğinizde terminal "bağlantı hatası" veriyor. İşvereniniz maaşları yatıramıyor çünkü bankalar arası havale sistemi çökmüş durumda. Yerel borsalar işlemleri askıya alıyor.</p>
@@ -454,10 +470,6 @@
         bg: "4.png",
         html: `
           <h1 class="page-title">Petrol, Lojistik ve Körfez'in Nabzı</h1>
-          <div class="article-author">
-            <div class="author-name">Bilal Aksoy</div>
-            <div class="author-role">Kurucu & Baş Analist</div>
-          </div>
           <p>Körfez ülkelerinin zenginliğinin kaynağı olan petrol, artık yalnızca bir pompa ve vana işi değil. Bir uçtan uca dijital bir süreç.</p>
           <h2 class="page-subtitle">Petrol Durursa</h2>
           <p>Suudi Arabistan'ın devlet şirketi Aramco, BAE'nin ADNOC'u ya da KatarEnergy'nin tüm üretim tesisleri, merkezi kontrol odalarından yönetiliyor. Kuyulardaki basınç, boru hatlarındaki akış, rafinerilerdeki işlemler... Hepsi bu altı şirketin sağladığı yazılımlar ve işlemcilerle kontrol ediliyor.</p>
@@ -472,10 +484,6 @@
         bg: "5.png",
         html: `
           <h1 class="page-title">Palantir: İstihbaratın Gözü</h1>
-          <div class="article-author">
-            <div class="author-name">Bilal Aksoy</div>
-            <div class="author-role">Kurucu & Baş Analist</div>
-          </div>
           <p>Listedeki en özel şirket Palantir. İran'ın onu hedef almasının nedeni, ticari kayıplardan çok daha stratejik. İran, Palantir'i, ülkenin en korumalı ismi olarak bilinen Kasım Süleymani'nin yerini tespit eden teknolojinin arkasındaki güç olarak görüyor.</p>
           <p>Palantir, sıradan bir veri analiz şirketi değildir. CIA, Pentagon ve NSA gibi ABD istihbaratının bel kemiğini oluşturan kurumların en karmaşık verilerini işleyen, anlamlandıran ve hedef haline getiren bir platformdur.</p>
           <p>Eğer Palantir'in bölgedeki operasyonları hedef alınırsa veya dijital varlıkları ciddi hasar görürse, ABD'nin Ortadoğu'daki istihbarat ağında dev bir boşluk oluşur. Uydu görüntüleri yorumlanamaz, sahadan gelen sinyaller analiz edilemez, istihbarat akışı durur. Bu, ABD'nin bölgede "kör" kalması anlamına gelir. Operasyon kabiliyeti ciddi şekilde zedelenir.</p>
@@ -485,10 +493,6 @@
         bg: "6.png",
         html: `
           <h1 class="page-title">Sonuç: Yeni Savaşın Anatomisi</h1>
-          <div class="article-author">
-            <div class="author-name">Bilal Aksoy</div>
-            <div class="author-role">Kurucu & Baş Analist</div>
-          </div>
           <p>Bu senaryo, savaşların artık sadece toprak ve silahla kazanılmadığını gösteriyor. 21. yüzyılın savaşları, bir ülkenin ya da bölgenin beynini hedef alıyor. O beyin, dijital altyapıdır.</p>
           <p>Bir füze, bir binayı yıkarak belki yüzlerce insanı öldürebilir. Ama bir veri merkezini vurarak milyonlarca insanın hayatını felç edebilirsiniz. Paranıza erişemez, tedavi olamaz, işinize gidemez, evinizi ısıtacak enerjiyi bulamaz hale gelirsiniz.</p>
           <p>İran'ın bu altı şirketi hedef listesine alması, savaşın kurallarının değiştiğinin en büyük işaretidir. Bu, sadece bir füze savaşı değil, bir altyapı savaşıdır. Körfez ülkeleri için bu, petrol fiyatlarından çok daha derin bir kriz anlamına gelir. Bu, modern hayatın kendisinin sorgulanmasıdır.</p>
@@ -507,6 +511,13 @@
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const sideNav = document.getElementById("sideNav");
+    const publishDate = document.getElementById("publishDate");
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const year = now.getFullYear();
+    publishDate.textContent = `${day}.${month}.${year}`;
 
     function renderSideNav() {
       sideNav.innerHTML = "";
@@ -514,10 +525,7 @@
         const btn = document.createElement("button");
         btn.textContent = index + 1;
         if (index === currentPage) btn.classList.add("active");
-        btn.addEventListener("click", () => {
-          currentPage = index;
-          renderPage();
-        });
+        btn.addEventListener("click", () => goToPage(index));
         sideNav.appendChild(btn);
       });
     }
@@ -533,19 +541,48 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    prevBtn.addEventListener("click", () => {
-      if (currentPage > 0) {
-        currentPage--;
+    function goToPage(index){
+      if(index < 0 || index >= pages.length || index === currentPage) return;
+
+      pageContent.classList.add("is-leaving");
+      pageBg.classList.add("is-leaving");
+
+      setTimeout(() => {
+        currentPage = index;
         renderPage();
-      }
+        pageContent.classList.remove("is-leaving");
+        pageBg.classList.remove("is-leaving");
+      }, 220);
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 0) goToPage(currentPage - 1);
     });
 
     nextBtn.addEventListener("click", () => {
-      if (currentPage < pages.length - 1) {
-        currentPage++;
-        renderPage();
-      }
+      if (currentPage < pages.length - 1) goToPage(currentPage + 1);
     });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft" && currentPage > 0) goToPage(currentPage - 1);
+      if (e.key === "ArrowRight" && currentPage < pages.length - 1) goToPage(currentPage + 1);
+    });
+
+    let touchStartX = null;
+
+    document.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    document.addEventListener("touchend", (e) => {
+      if (touchStartX === null || e.changedTouches.length !== 1) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+
+      if (dx > 60 && currentPage > 0) goToPage(currentPage - 1);
+      if (dx < -60 && currentPage < pages.length - 1) goToPage(currentPage + 1);
+
+      touchStartX = null;
+    }, { passive: true });
 
     renderPage();
   </script>
