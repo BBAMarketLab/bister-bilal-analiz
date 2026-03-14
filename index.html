@@ -116,6 +116,7 @@
       border:2.5px solid var(--gold-soft); // Gold/copper border biraz daha belirgin
       box-shadow:inset 0 0 0 1.5px #d9b46b33, 0 0 32px #d9b46b22, 0 0 60px #7fd7ff18;
       background:#0a0d13;
+      backdrop-filter: blur(7px) saturate(1.08); /* Hafif cam efekti, premium derinlik */
     }
 
     .page-bg{
@@ -124,7 +125,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      filter:brightness(.68) saturate(1.05); // Görsel görünürlüğü artırıldı
+      filter:brightness(.78) contrast(1.08) saturate(1.12); /* Görsel daha parlak ve canlı */
       transform:scale(1.02);
     }
 
@@ -132,8 +133,9 @@
       position:absolute;
       inset:0;
       background:
-        linear-gradient(180deg, rgba(7,10,16,.55) 0%, rgba(7,10,16,.44) 18%, rgba(7,10,16,.56) 48%, rgba(7,10,16,.78) 100%),
-        linear-gradient(90deg, rgba(11,14,21,.82) 0%, rgba(11,14,21,.62) 40%, rgba(11,14,21,.70) 100%);
+        linear-gradient(180deg, rgba(7,10,16,.38) 0%, rgba(7,10,16,.32) 18%, rgba(7,10,16,.44) 48%, rgba(7,10,16,.62) 100%),
+        linear-gradient(90deg, rgba(11,14,21,.62) 0%, rgba(11,14,21,.38) 40%, rgba(11,14,21,.48) 100%);
+      pointer-events:none;
     }
 
     .page-content{
@@ -256,6 +258,15 @@
       .page-content p{
         font-size:17px;
         line-height:1.66;
+      }
+      /* Mobilde overlay daha şeffaf, arka plan daha görünür */
+      .page-overlay{
+        background:
+          linear-gradient(180deg, rgba(7,10,16,.22) 0%, rgba(7,10,16,.18) 18%, rgba(7,10,16,.28) 48%, rgba(7,10,16,.44) 100%),
+          linear-gradient(90deg, rgba(11,14,21,.32) 0%, rgba(11,14,21,.18) 40%, rgba(11,14,21,.28) 100%);
+      }
+      .page-bg{
+        filter:brightness(.86) contrast(1.12) saturate(1.16);
       }
     }
 
