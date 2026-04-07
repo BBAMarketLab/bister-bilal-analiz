@@ -58,23 +58,41 @@
       top: -120px;
       border-radius: 50%;
       background: radial-gradient(circle,
-        rgba(120,180,255,0.35) 0%,
-        rgba(120,180,255,0.12) 40%,
+        rgba(120,180,255,0.45) 0%,
+        rgba(120,180,255,0.18) 40%,
         transparent 70%);
       box-shadow:
-        0 0 25px rgba(120,180,255,0.25),
-        0 0 60px rgba(120,180,255,0.15);
+        0 0 30px rgba(120,180,255,0.35),
+        0 0 80px rgba(120,180,255,0.18);
+      filter: blur(1px);
       animation: floatDown linear infinite;
       will-change: transform, opacity;
     }
 
-    .bubble.far { filter: blur(1.6px); }
-    .bubble.near { filter: blur(0.4px); }
+    .bubble.outer { filter: blur(2px); }
+    .bubble.inner { filter: blur(0.75px); }
 
     @keyframes floatDown {
-      from { transform: translateY(-120px); opacity: 0; }
-      20% { opacity: 1; }
-      to { transform: translateY(110vh); opacity: 0; }
+      0% { transform: translateY(-120px); opacity: 0; }
+      20% { opacity: 0.9; }
+      100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      background: rgba(10, 25, 50, 0.45);
+      backdrop-filter: blur(22px);
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .inner-bubbles {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
     }
 
     .shell{
@@ -149,6 +167,8 @@
         linear-gradient(90deg,rgba(217,180,107,0.06) 0%,rgba(255,255,255,0) 100%);
       box-shadow:0 2px 18px 0 rgba(217,180,107,0.06);
       backdrop-filter:blur(2.5px);
+      position:relative;
+      z-index:2;
     }
 
     .brand-pill{
@@ -176,6 +196,8 @@
 
     .page-wrap{
       padding:22px 22px 24px;
+      position:relative;
+      z-index:2;
     }
 
     .page{
@@ -369,7 +391,8 @@
   <div class="shell">
     <aside class="side-nav" id="sideNav"></aside>
 
-    <main class="viewer">
+    <main class="viewer container">
+      <div class="inner-bubbles"></div>
       <div class="viewer-header">
         <div class="brand-pill">Bister Bilal Borsa Akademi</div>
         <div class="date" id="publishDate"></div>
@@ -395,7 +418,7 @@
       {
         html: `
           <h1 class="page-title">Son Yüzyılın En Büyük Ayıbı: Gücün Deliliği ve İnsanlığın Sınıfta Kalışı</h1>
-          <p>Dünya, tarihinin en büyük trajedilerinden ve kırılma noktalarından birini canlı yayında, adeta bir tiyatro oyunu izler gibi seyrediliyor. İnsanlığın geldiği bu nokta, yüzyıllardır inşa edildiği iddia edilen o "modern medeniyetin" aslında ne kadar büyük bir yalan, ne kadar riyakar bir illüzyon olduğunu tüm çıplaklığıyla yüzümüze vuruyor.</p>
+          <p>Dünya, tarihinin en büyük trajedilerinden ve kırılma noktalarından birini canlı yayında, adeta bir tiyatro oyunu izler gibi seyrediyor tüm Medeniyet. İnsanlığın geldiği bu nokta, yüzyıllardır inşa edildiği iddia edilen o "modern medeniyetin" aslında ne kadar büyük bir yalan, ne kadar riyakar bir illüzyon olduğunu tüm çıplaklığıyla yüzümüze vuruyor.</p>
           <p>Dünyanın en büyük askeri gücüne ve nükleer cephaneliğine hükmeden, ancak akıl sağlığı, tutarsızlığı ve fevriliği tüm dünyaca bilinen bir karakter, sosyal medya hesabı üzerinden binlerce yıllık bir medeniyeti, milyonlarca masum insanı "bu gece" yok etmekten bahsedebiliyor. Ve asıl kan donduran şey bu hastalıklı cüretin kendisi değil; dünyanın geri kalanının bu fütursuzluğa karşı büründüğü o korkak, o sağır edici sessizliktir.</p>
           <p>Bugün, "demokrasi, insan hakları, barış ve evrensel hukuk" masallarıyla kendinden olmayan herkesi hizaya çekmeye çalışan sözde "medeni" ülkelerin maskesi sonsuza dek düşmüştür.</p>
         `
@@ -425,6 +448,7 @@
     const sideNav = document.getElementById("sideNav");
     const publishDate = document.getElementById("publishDate");
     const bgLayer = document.getElementById("bgLayer");
+    const innerLayer = document.querySelector(".inner-bubbles");
 
     const now = new Date();
     const day = String(now.getDate()).padStart(2, "0");
@@ -432,31 +456,56 @@
     const year = now.getFullYear();
     publishDate.textContent = `${day}.${month}.${year}`;
 
+    function makeBubbleNode(bubble, layerType) {
+      const node = document.createElement("span");
+      node.className = `bubble ${layerType}`;
+      node.style.left = `${bubble.left}%`;
+      node.style.width = `${bubble.size}px`;
+      node.style.height = `${bubble.size}px`;
+      node.style.opacity = String(bubble.opacity);
+      node.style.animationDelay = `${bubble.delay}s`;
+      node.style.animationDuration = `${bubble.duration}s`;
+      return node;
+    }
+
     function buildBubbles() {
-      if (!bgLayer) return;
+      if (!bgLayer || !innerLayer) return;
       const bubbles = [
-        { left: 5, size: 46, opacity: 0.14, delay: -6, duration: 54, depth: "near" },
-        { left: 12, size: 24, opacity: 0.1, delay: -20, duration: 68, depth: "far" },
-        { left: 21, size: 78, opacity: 0.13, delay: -13, duration: 76, depth: "near" },
-        { left: 31, size: 34, opacity: 0.11, delay: -29, duration: 63, depth: "far" },
-        { left: 42, size: 102, opacity: 0.1, delay: -37, duration: 85, depth: "near" },
-        { left: 53, size: 26, opacity: 0.1, delay: -18, duration: 60, depth: "far" },
-        { left: 63, size: 70, opacity: 0.13, delay: -32, duration: 79, depth: "near" },
-        { left: 74, size: 30, opacity: 0.1, delay: -24, duration: 66, depth: "far" },
-        { left: 84, size: 88, opacity: 0.12, delay: -41, duration: 83, depth: "near" },
-        { left: 94, size: 48, opacity: 0.1, delay: -10, duration: 72, depth: "far" }
+        { left: 3, size: 20, opacity: 0.12, delay: -2, duration: 23 },
+        { left: 7, size: 50, opacity: 0.16, delay: -6, duration: 31 },
+        { left: 11, size: 120, opacity: 0.09, delay: -10, duration: 38 },
+        { left: 16, size: 20, opacity: 0.1, delay: -14, duration: 27 },
+        { left: 20, size: 50, opacity: 0.14, delay: -18, duration: 35 },
+        { left: 24, size: 120, opacity: 0.08, delay: -22, duration: 40 },
+        { left: 29, size: 20, opacity: 0.11, delay: -26, duration: 25 },
+        { left: 33, size: 50, opacity: 0.15, delay: -30, duration: 32 },
+        { left: 38, size: 120, opacity: 0.09, delay: -34, duration: 39 },
+        { left: 43, size: 20, opacity: 0.11, delay: -4, duration: 24 },
+        { left: 47, size: 50, opacity: 0.13, delay: -8, duration: 30 },
+        { left: 52, size: 120, opacity: 0.08, delay: -12, duration: 37 },
+        { left: 57, size: 20, opacity: 0.12, delay: -16, duration: 26 },
+        { left: 61, size: 50, opacity: 0.16, delay: -20, duration: 33 },
+        { left: 66, size: 120, opacity: 0.09, delay: -24, duration: 40 },
+        { left: 71, size: 20, opacity: 0.11, delay: -28, duration: 22 },
+        { left: 75, size: 50, opacity: 0.14, delay: -32, duration: 34 },
+        { left: 80, size: 120, opacity: 0.08, delay: -36, duration: 38 },
+        { left: 85, size: 20, opacity: 0.1, delay: -40, duration: 27 },
+        { left: 89, size: 50, opacity: 0.15, delay: -44, duration: 36 },
+        { left: 94, size: 120, opacity: 0.08, delay: -48, duration: 39 },
+        { left: 97, size: 20, opacity: 0.11, delay: -52, duration: 23 }
       ];
 
       bubbles.forEach((b) => {
-        const node = document.createElement("span");
-        node.className = `bubble ${b.depth}`;
-        node.style.left = `${b.left}%`;
-        node.style.width = `${b.size}px`;
-        node.style.height = `${b.size}px`;
-        node.style.opacity = String(b.opacity);
-        node.style.animationDelay = `${b.delay}s`;
-        node.style.animationDuration = `${b.duration}s`;
-        bgLayer.appendChild(node);
+        const outer = makeBubbleNode(b, "outer");
+        const inner = outer.cloneNode(true);
+        inner.classList.remove("outer");
+        inner.classList.add("inner");
+
+        outer.style.opacity = String(Math.max(0.05, b.opacity * 0.55));
+        inner.style.opacity = String(Math.min(0.24, b.opacity * 1.12));
+
+        bgLayer.appendChild(outer);
+        innerLayer.appendChild(inner);
       });
     }
 
