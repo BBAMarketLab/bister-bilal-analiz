@@ -35,39 +35,50 @@
         overflow-x: hidden;
       }
 
-      .bg-layer {
+      #bgLayer {
         position: fixed;
-        inset: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
         z-index: 0;
         pointer-events: none;
-        overflow: hidden;
       }
 
       .bubble {
         position: absolute;
-        top: -12vh;
+        top: -100px;
         border-radius: 50%;
-        background: radial-gradient(circle at 35% 35%, rgba(182, 206, 255, 0.2), rgba(182, 206, 255, 0.04) 60%, rgba(182, 206, 255, 0.015) 100%);
-        filter: blur(0.4px);
-        opacity: 0.22;
-        animation-name: driftDown;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
+        background: radial-gradient(circle, rgba(120, 180, 255, 0.25) 0%, rgba(120, 180, 255, 0.08) 40%, transparent 70%);
+        box-shadow: 0 0 20px rgba(120, 180, 255, 0.15);
+        animation: fall linear infinite;
         will-change: transform;
       }
 
-      @keyframes driftDown {
+      @keyframes fall {
         0% {
-          transform: translate3d(0, -10vh, 0);
+          transform: translateY(-120px);
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
         }
         100% {
-          transform: translate3d(0, 120vh, 0);
+          transform: translateY(110vh);
+          opacity: 0;
         }
+      }
+
+      .container,
+      .content {
+        position: relative;
+        z-index: 2;
       }
 
       .page {
         position: relative;
-        z-index: 1;
+        z-index: 2;
         padding: 72px 20px 84px;
       }
 
@@ -142,7 +153,7 @@
     </style>
   </head>
   <body>
-    <div class="bg-layer" aria-hidden="true" id="bgLayer"></div>
+    <div id="bgLayer"></div>
 
     <main class="page">
       <article class="article-shell">
@@ -153,7 +164,7 @@
         <section class="article-body" aria-label="Makale Metni">
           <p>
             Dünya, tarihinin en büyük trajedilerinden ve kırılma noktalarından birini canlı yayında, adeta bir tiyatro oyunu
-            izler gibi seyrediyor. İnsanlığın geldiği bu nokta, yüzyıllardır inşa edildiği iddia edilen o "modern medeniyetin"
+            izler gibi seyrediliyor. İnsanlığın geldiği bu nokta, yüzyıllardır inşa edildiği iddia edilen o "modern medeniyetin"
             aslında ne kadar büyük bir yalan, ne kadar riyakar bir illüzyon olduğunu tüm çıplaklığıyla yüzümüze vuruyor.
           </p>
 
