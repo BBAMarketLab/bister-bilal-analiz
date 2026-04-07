@@ -234,10 +234,23 @@
       position:relative;
       z-index:2;
       max-width:860px;
-      padding:42px 38px 54px;
+      padding:0;
+      border-radius:20px;
+      background: rgba(8, 18, 35, 0.22);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 10px 30px rgba(8, 20, 40, 0.24);
+      overflow:hidden;
       transition:opacity .30s ease, transform .36s ease;
       opacity:1;
       transform:translateY(0);
+    }
+
+    .page-content-body{
+      position: relative;
+      z-index: 2;
+      padding:42px 38px 54px;
     }
 
     .page-content.is-leaving{
@@ -256,8 +269,8 @@
       filter:drop-shadow(0 0 12px #d9b46b66);
     }
 
-    .page-content p,
-    .page-content li{
+    .page-content-body p,
+    .page-content-body li{
       margin:0 0 16px;
       font-size:clamp(18px, 1.25vw, 28px);
       line-height:1.72;
@@ -265,13 +278,13 @@
       text-shadow:0 1px 4px rgba(0,0,0,.32);
     }
 
-    .page-content .author{
+    .page-content-body .author{
       margin-top:28px;
       font-weight:700;
       color:#f7f8fb;
     }
 
-    .page-content .author-role{
+    .page-content-body .author-role{
       font-family:Arial, Helvetica, sans-serif;
       color:#d8deea;
       font-size:15px;
@@ -349,10 +362,10 @@
         margin:0;
       }
       .page{min-height:auto;}
-      .page-content{padding:26px 22px 34px;}
+      .page-content-body{padding:26px 22px 34px;}
       .page-title{font-size:34px;}
-      .page-content p,
-      .page-content li{
+      .page-content-body p,
+      .page-content-body li{
         font-size:17px;
         line-height:1.66;
       }
@@ -373,8 +386,8 @@
       .date{font-size:12px;}
       .page-wrap{padding:14px 14px 18px;}
       .page-title{font-size:30px;}
-      .page-content p,
-      .page-content li{font-size:16px;}
+      .page-content-body p,
+      .page-content-body li{font-size:16px;}
       .viewer-footer{padding:12px 14px 16px;}
       .viewer-footer .nav-btn{min-width:92px; padding:10px 12px;}
       .counter{font-size:16px;}
@@ -392,7 +405,6 @@
     <aside class="side-nav" id="sideNav"></aside>
 
     <main class="viewer container">
-      <div class="inner-bubbles"></div>
       <div class="viewer-header">
         <div class="brand-pill">Bister Bilal Borsa Akademi</div>
         <div class="date" id="publishDate"></div>
@@ -401,7 +413,10 @@
       <div class="page-wrap">
         <section class="page">
           <div class="page-overlay"></div>
-          <div id="pageContent" class="page-content"></div>
+          <div id="pageContent" class="page-content">
+            <div class="inner-bubbles"></div>
+            <div id="pageContentBody" class="page-content-body"></div>
+          </div>
         </section>
       </div>
 
@@ -442,13 +457,14 @@
     let currentPage = 0;
 
     const pageContent = document.getElementById("pageContent");
+    const pageContentBody = document.getElementById("pageContentBody");
     const counter = document.getElementById("counter");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const sideNav = document.getElementById("sideNav");
     const publishDate = document.getElementById("publishDate");
     const bgLayer = document.getElementById("bgLayer");
-    const innerLayer = document.querySelector(".inner-bubbles");
+    const innerLayer = pageContent.querySelector(".inner-bubbles");
 
     const now = new Date();
     const day = String(now.getDate()).padStart(2, "0");
@@ -501,8 +517,8 @@
         inner.classList.remove("outer");
         inner.classList.add("inner");
 
-        outer.style.opacity = String(Math.max(0.05, b.opacity * 0.55));
-        inner.style.opacity = String(Math.min(0.24, b.opacity * 1.12));
+        outer.style.opacity = String(Math.max(0.06, b.opacity * 0.75));
+        inner.style.opacity = String(Math.min(0.20, b.opacity * 0.68));
 
         bgLayer.appendChild(outer);
         innerLayer.appendChild(inner);
@@ -522,7 +538,7 @@
 
     function renderPage() {
       const page = pages[currentPage];
-      pageContent.innerHTML = page.html;
+      pageContentBody.innerHTML = page.html;
       counter.textContent = `${currentPage + 1} / ${pages.length}`;
       prevBtn.disabled = currentPage === 0;
       nextBtn.disabled = currentPage === pages.length - 1;
