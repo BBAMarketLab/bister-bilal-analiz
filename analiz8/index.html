@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Son Yuzyilin En Buyuk Ayibi</title>
+    <style>
+      :root {
+        --bg-top: #07132b;
+        --bg-mid: #0a1b39;
+        --bg-bottom: #040a18;
+        --panel-bg: rgba(5, 12, 28, 0.68);
+        --panel-border: rgba(176, 201, 255, 0.16);
+        --text-main: #eaf0ff;
+        --text-muted: #c5d1ee;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        font-family: "Georgia", "Times New Roman", serif;
+        background: linear-gradient(170deg, var(--bg-top) 0%, var(--bg-mid) 45%, var(--bg-bottom) 100%);
+        color: var(--text-main);
+        line-height: 1.85;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      .bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .bubble {
+        position: absolute;
+        top: -12vh;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, rgba(182, 206, 255, 0.2), rgba(182, 206, 255, 0.04) 60%, rgba(182, 206, 255, 0.015) 100%);
+        filter: blur(0.4px);
+        opacity: 0.22;
+        animation-name: driftDown;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        will-change: transform;
+      }
+
+      @keyframes driftDown {
+        0% {
+          transform: translate3d(0, -10vh, 0);
+        }
+        100% {
+          transform: translate3d(0, 120vh, 0);
+        }
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        padding: 72px 20px 84px;
+      }
+
+      .article-shell {
+        width: min(900px, 100%);
+        margin: 0 auto;
+        background: var(--panel-bg);
+        border: 1px solid var(--panel-border);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 52px 56px 44px;
+        backdrop-filter: blur(2px);
+      }
+
+      h1 {
+        margin: 0 0 28px;
+        font-size: clamp(1.95rem, 3.6vw, 2.95rem);
+        letter-spacing: 0.01em;
+        line-height: 1.25;
+        color: #f4f7ff;
+      }
+
+      .article-body {
+        color: var(--text-main);
+        font-size: clamp(1rem, 1.2vw, 1.14rem);
+      }
+
+      .article-body p {
+        margin: 0 0 1.28em;
+        text-wrap: pretty;
+      }
+
+      .signature {
+        margin-top: 34px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(194, 211, 248, 0.2);
+        color: var(--text-muted);
+        font-size: 0.98rem;
+        letter-spacing: 0.02em;
+      }
+
+      .signature p {
+        margin: 0.2em 0;
+      }
+
+      @media (max-width: 768px) {
+        .page {
+          padding: 36px 14px 44px;
+        }
+
+        .article-shell {
+          padding: 30px 20px 28px;
+          border-radius: 14px;
+        }
+
+        h1 {
+          margin-bottom: 22px;
+        }
+
+        .article-body {
+          font-size: 1.02rem;
+          line-height: 1.8;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .bubble {
+          animation-duration: 1ms !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-layer" aria-hidden="true" id="bgLayer"></div>
+
+    <main class="page">
+      <article class="article-shell">
+        <header>
+          <h1>Son Yüzyılın En Büyük Ayıbı: Gücün Deliliği ve İnsanlığın Sınıfta Kalışı</h1>
+        </header>
+
+        <section class="article-body" aria-label="Makale Metni">
+          <p>
+            Dünya, tarihinin en büyük trajedilerinden ve kırılma noktalarından birini canlı yayında, adeta bir tiyatro oyunu
+            izler gibi seyrediyor. İnsanlığın geldiği bu nokta, yüzyıllardır inşa edildiği iddia edilen o "modern medeniyetin"
+            aslında ne kadar büyük bir yalan, ne kadar riyakar bir illüzyon olduğunu tüm çıplaklığıyla yüzümüze vuruyor.
+          </p>
+
+          <p>
+            Dünyanın en büyük askeri gücüne ve nükleer cephaneliğine hükmeden, ancak akıl sağlığı, tutarsızlığı ve fevriliği tüm
+            dünyaca bilinen bir karakter, sosyal medya hesabı üzerinden binlerce yıllık bir medeniyeti, milyonlarca masum insanı
+            "bu gece" yok etmekten bahsedebiliyor. Ve asıl kan donduran şey bu hastalıklı cüretin kendisi değil; dünyanın geri
+            kalanının bu fütursuzluğa karşı büründüğü o korkak, o sağır edici sessizliktir.
+          </p>
+
+          <p>
+            Bugün, "demokrasi, insan hakları, barış ve evrensel hukuk" masallarıyla kendinden olmayan herkesi hizaya çekmeye
+            çalışan sözde "medeni" ülkelerin maskesi sonsuza dek düşmüştür.
+          </p>
+
+          <p>
+            Kendi çıkarları, sınırları veya ekonomileri söz konusu olduğunda dünyayı ayağa kaldıran küresel güçler,
+            uluslararası kurumlar ve insan hakları havarileri; kontrolsüz bir aklın, koca bir coğrafyayı çocuklarıyla,
+            yaşlılarıyla, tarihiyle ve kültürüyle haritadan silme tehdidi karşısında dillerini yutmuş durumdalar. Bu sessizlik
+            diplomatik bir strateji veya denge politikası falan değildir; bu düpedüz suç ortaklığıdır.
+          </p>
+
+          <p>
+            Milyonlarca insanın hayatının, egosunu tatmin etmeye çalışan, kontrolsüz bir kibrin iki dudağı arasına bırakılması
+            21. yüzyılın, hatta son yüzyılın en büyük ayıbıdır. Medeniyet dediğimiz kavram, devasa binalar dikmek veya uzaya
+            roket göndermekle ölçülmez; medeniyet, gücü elinde bulunduranın zıvanadan çıkmasına karşı tek yürek olup "dur"
+            diyebilme iradesidir.
+          </p>
+
+          <p>
+            Bugün bu irade felç olmuştur. Bir insanın klavye başından verdiği hezeyan dolu bir kararla bir ülkenin üzerine ölüm
+            kusma ihtimaline ses çıkaramayan, bu nobran karaktere sınır çizemeyen her devlet, kendi varlık sebebini inkar
+            etmektedir.
+          </p>
+
+          <p>
+            Eğer uluslararası hukuk ve evrensel vicdan, sadece zayıfları ezmek için değil güçlülerin deliliklerini durdurmak
+            için de var olduğunu bugün gösteremeyecekse, o çok övünülen modern medeniyet zaten çoktan çökmüş demektir. İnsanlık
+            bugün o büyük ahlak sınavında sınıfta kalmış; kendi sonunu hazırlayan o tuşa basan zihniyet kadar, bu vahşeti
+            sessizce izleyen "medeni" yığınlar da tarihin kara sayfalarındaki yerini şimdiden almıştır.
+          </p>
+        </section>
+
+        <footer class="signature" aria-label="Yazar İmzası">
+          <p>Bilal AKSOY</p>
+          <p>BBA MarketLab</p>
+          <p>Kurucu &amp; Baş Analist</p>
+        </footer>
+      </article>
+    </main>
+
+    <script>
+      (function () {
+        var layer = document.getElementById("bgLayer");
+        if (!layer) {
+          return;
+        }
+
+        var bubbles = [
+          { left: 8, size: 42, opacity: 0.12, delay: -6, duration: 54 },
+          { left: 18, size: 20, opacity: 0.09, delay: -22, duration: 67 },
+          { left: 27, size: 66, opacity: 0.1, delay: -15, duration: 72 },
+          { left: 39, size: 32, opacity: 0.11, delay: -29, duration: 62 },
+          { left: 49, size: 84, opacity: 0.08, delay: -40, duration: 80 },
+          { left: 61, size: 24, opacity: 0.09, delay: -17, duration: 59 },
+          { left: 72, size: 58, opacity: 0.12, delay: -33, duration: 74 },
+          { left: 82, size: 28, opacity: 0.1, delay: -10, duration: 63 },
+          { left: 91, size: 46, opacity: 0.09, delay: -26, duration: 69 },
+          { left: 55, size: 18, opacity: 0.08, delay: -46, duration: 57 }
+        ];
+
+        for (var i = 0; i < bubbles.length; i++) {
+          var b = bubbles[i];
+          var node = document.createElement("span");
+          node.className = "bubble";
+          node.style.left = b.left + "%";
+          node.style.width = b.size + "px";
+          node.style.height = b.size + "px";
+          node.style.opacity = String(b.opacity);
+          node.style.animationDelay = b.delay + "s";
+          node.style.animationDuration = b.duration + "s";
+          layer.appendChild(node);
+        }
+      })();
+    </script>
+  </body>
+</html>
