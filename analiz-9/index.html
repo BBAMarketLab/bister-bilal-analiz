@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ANALİZ 9</title>
+    <style>
+      :root {
+        --bg-1: #070b16;
+        --bg-2: #0d1224;
+        --text-main: #eaf1ff;
+        --text-soft: #c8d6ff;
+        --neon-blue: rgba(83, 163, 255, 0.6);
+        --neon-purple: rgba(151, 92, 255, 0.5);
+        --card-bg: rgba(12, 18, 34, 0.56);
+        --card-border: rgba(166, 205, 255, 0.26);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", "Arial", sans-serif;
+        color: var(--text-main);
+        background: radial-gradient(circle at 20% 20%, #121d3d 0%, transparent 45%),
+          radial-gradient(circle at 80% 15%, #21123f 0%, transparent 42%),
+          linear-gradient(140deg, var(--bg-1), var(--bg-2));
+        overflow-x: hidden;
+        display: grid;
+        place-items: center;
+        padding: 28px 16px;
+      }
+
+      .bg-glow {
+        position: fixed;
+        inset: -20vmax;
+        pointer-events: none;
+        z-index: 0;
+        filter: blur(70px);
+      }
+
+      .glow {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.34;
+        mix-blend-mode: screen;
+        animation: drift 16s ease-in-out infinite alternate;
+      }
+
+      .glow.one {
+        width: 45vmax;
+        height: 45vmax;
+        background: #3f8cff;
+        top: 10%;
+        left: 8%;
+      }
+
+      .glow.two {
+        width: 40vmax;
+        height: 40vmax;
+        background: #8f52ff;
+        top: 54%;
+        right: 4%;
+        animation-duration: 20s;
+      }
+
+      .glow.three {
+        width: 34vmax;
+        height: 34vmax;
+        background: #2bc9ff;
+        bottom: -2%;
+        left: 34%;
+        animation-duration: 24s;
+      }
+
+      .wrap {
+        position: relative;
+        z-index: 1;
+        width: min(920px, 100%);
+      }
+
+      .card {
+        position: relative;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: clamp(20px, 4vw, 36px);
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        animation: fadeInUp 0.9s ease-out both;
+        transition: transform 0.35s ease, box-shadow 0.35s ease,
+          border-color 0.35s ease;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 24px;
+        padding: 1px;
+        background: linear-gradient(130deg, var(--neon-blue), var(--neon-purple));
+        -webkit-mask: linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0.84;
+      }
+
+      .card:hover {
+        transform: translateY(-6px) scale(1.004);
+        border-color: rgba(184, 224, 255, 0.4);
+        box-shadow: 0 30px 86px rgba(0, 0, 0, 0.5),
+          0 0 34px rgba(98, 160, 255, 0.2),
+          0 0 26px rgba(146, 93, 255, 0.2);
+      }
+
+      .label {
+        margin: 0;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: clamp(12px, 2vw, 14px);
+        color: #b8ceff;
+      }
+
+      h1 {
+        margin: 12px 0 22px;
+        font-size: clamp(24px, 4.4vw, 40px);
+        line-height: 1.2;
+        letter-spacing: 0.01em;
+        font-weight: 800;
+        color: #f3f7ff;
+        text-wrap: balance;
+      }
+
+      .content {
+        display: grid;
+        gap: 1.08rem;
+      }
+
+      .content p {
+        margin: 0;
+        font-size: clamp(16px, 2.1vw, 19px);
+        line-height: 1.8;
+        color: var(--text-soft);
+        text-wrap: pretty;
+      }
+
+      @keyframes drift {
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        50% {
+          transform: translate3d(3.5vmax, -2.5vmax, 0) scale(1.06);
+        }
+        100% {
+          transform: translate3d(-3vmax, 3vmax, 0) scale(0.96);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 20px 12px;
+        }
+
+        .card {
+          border-radius: 20px;
+          padding: 18px;
+        }
+
+        .card::before {
+          border-radius: 20px;
+        }
+
+        .content p {
+          line-height: 1.72;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-glow" aria-hidden="true">
+      <div class="glow one"></div>
+      <div class="glow two"></div>
+      <div class="glow three"></div>
+    </div>
+
+    <main class="wrap">
+      <article class="card">
+        <p class="label">ANALİZ 9</p>
+        <h1>HÜRMÜZ'DE İKİ YÜZLÜ DİPLOMASİ</h1>
+
+        <section class="content">
+          <p>Ekranlarınıza düşen o son dakika açıklamasına çok dikkatli bakmanızı istiyorum. ABD cephesinden Trump kameraların karşısına geçip tam olarak şu iddialı cümleleri kurdu:</p>
+
+          <p>"Hürmüz Boğazı tamamen açıktır ve ticarete, tam geçişe hazırdır. Ancak deniz ablukası, yalnızca İran’a yönelik olarak, İran ile gerçekleştireceğimiz anlaşma %100 tamamlanana kadar tam olarak geçerliliğini koruyacaktır. Müzakere edilmiş noktaların büyük çoğunluğu zaten tamamlandığından bu sürecin çok hızlı ilerlemesi beklenmektedir."</p>
+
+          <p>Kulağa ne kadar da "yapıcı" ve "çözüm odaklı" geliyor değil mi? İşte büyük güçlerin satranç tahtasında bazen en gürültülü barış çığlıkları, aslında en derin stratejik kuşatmaları gizlemek için atılır.</p>
+
+          <p>Bir yandan dünyaya "Boğaz tamamen açık, ticaret güvende" denilerek kusursuz bir PR çalışması yapılıyor; diğer yandan ise "anlaşma bitene kadar askeri abluka sürecek" diyerek silahın namlusu masanın tam ortasında tutulmaya devam ediliyor.</p>
+
+          <p>Son günlerde Orta Doğu ekseninde yaşanan gelişmelere, özellikle de ABD'nin adeta soluklanmak için talep ettiği ve sürekli "anlaşmaya çok yakınız" diyerek süreci uzattığı diğer ateşkes hamlelerine tam da bu gözle bakmamız gerekiyor.</p>
+
+          <p>Sahadaki gerçeklere baktığımızda, ortada net ve açık bir stratejik tıkanma, hatta örtülü bir yenilgi var. Ancak bunu kabul etmek yerine, tıpkı Trump'ın açıklamasında olduğu gibi, bir Hollywood filminin galasındaymışçasına her platformda "Muazzam bir zafer elde ettik, harika bir iş çıkardık" söylemleriyle dünyayı efsunlamaya çalışıyorlar.</p>
+
+          <p>Aslında bu devasa göz boyama kampanyasının tek bir amacı var: Amerika'nın artık o eski, istediğini anında dikte eden "yenilmez süper güç" olmadığı gerçeğinin üzerini örtmek.</p>
+
+          <p>Burada hepimizin çok ama çok dikkat etmesi gereken kritik bir nokta var. Bize "barışın müjdecisi" gibi sunulan Lübnan hattındaki bu ateşkes de, tıpkı Hürmüz'deki o sözde "açık kapı" politikası gibi süresi ve sınırları belli, son derece kırılgan bir taktiksel moladan ibaret.</p>
+
+          <p>Dolayısıyla, karşımızdaki aktörün; yani İsrail'in o kural tanımaz, uluslararası hukuku defalarca ve sistematik olarak hiçe sayan, savaş suçları işlemekten çekinmeyen agresif profilini asla göz ardı edemeyiz.</p>
+
+          <p>İşte tam da bu yüzden kendimize o can alıcı soruyu sormak zorundayız:</p>
+
+          <p>Eğer Trump'ın iddia ettiği gibi "her şey %100 yolunda" ise ve gerçekten kalıcı bir barış isteniyorsa, neden Orta Doğu'ya ve özellikle İsrail'e yönelik o aralıksız askeri nakliye bütün hızıyla devam ediyor?</p>
+
+          <p>Kameralar önünde diplomatik tebessümler dağıtılırken, arka planda kargo uçakları ve devasa gemilerle bölgeye son derece büyük bir askeri yığınak yapılmaya devam ediliyor.</p>
+
+          <p>Barışa ve ticarete hazırlanan bir ordu, neden tarihinin en büyük cephanelik transferlerinden birini gerçekleştirir?</p>
+
+          <p>Bu korkunç çelişki, asıl niyetin ne olduğunu bize açıkça haykırıyor.</p>
+
+          <p>Tüm bu verileri alt alta koyduğumuzda, tablo son derece net bir şekilde karşımıza çıkıyor.</p>
+
+          <p>Ortada güvenebileceğimiz dürüst bir "barış iradesi" yok.</p>
+
+          <p>Şimdi asıl mesele şu:</p>
+
+          <p>Bu oyalama taktiklerinin ve perde arkasındaki devasa askeri yığınağın sonucunda o beklenen kalıcı anlaşma gerçekten masadan çıkacak mı?</p>
+
+          <p>Yoksa bu ateşkes ve "boğazlar açık" söylemleri, tıpkı daha önce tarihte defalarca örneğini gördüğümüz gibi, düşmanı rehavete sürükleyip aniden, çok daha yıkıcı bir şekilde saldırmak için hazırlanan devasa bir sis perdesi mi?</p>
+
+          <p>ABD ve İsrail ekseninin güvenilmezliği bize tek bir şey söylüyor:</p>
+
+          <p>Geçmişin acı tecrübeleri, her zaman en kötüsüne hazırlıklı olmamızı emreder.</p>
+
+          <p>Bunu hep birlikte izleyip göreceğiz; ancak o güne kadar sermayemizi, stratejimizi ve gardımızı asla düşürmemeliyiz.</p>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>
