@@ -40,64 +40,6 @@
       padding:32px 0;
     }
 
-    .backdrop-orbs{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      overflow:hidden;
-      z-index:0;
-    }
-
-    .backdrop-orb{
-      position:absolute;
-      border-radius:50%;
-      filter:blur(2px);
-      opacity:.33;
-      animation:floatUp 16s ease-in-out infinite;
-    }
-
-    .backdrop-orb:nth-child(1){
-      width:260px;
-      height:260px;
-      left:-40px;
-      top:12%;
-      background:radial-gradient(circle,#d9b46b88 0%,#d9b46b00 70%);
-      animation-delay:0s;
-    }
-
-    .backdrop-orb:nth-child(2){
-      width:340px;
-      height:340px;
-      right:-60px;
-      top:30%;
-      background:radial-gradient(circle,#7fd7ff66 0%,#7fd7ff00 72%);
-      animation-delay:-4s;
-    }
-
-    .backdrop-orb:nth-child(3){
-      width:220px;
-      height:220px;
-      left:28%;
-      bottom:-80px;
-      background:radial-gradient(circle,#b68cff5c 0%,#b68cff00 72%);
-      animation-delay:-8s;
-    }
-
-    .backdrop-orb:nth-child(4){
-      width:180px;
-      height:180px;
-      right:22%;
-      bottom:8%;
-      background:radial-gradient(circle,#ffe7b044 0%,#ffe7b000 72%);
-      animation-delay:-2s;
-    }
-
-    @keyframes floatUp {
-      0%,100%{transform:translateY(0) translateX(0) scale(1)}
-      35%{transform:translateY(-18px) translateX(10px) scale(1.04)}
-      70%{transform:translateY(12px) translateX(-12px) scale(.98)}
-    }
-
     .shell{
       width:min(1040px,94vw);
       margin:0 auto;
@@ -172,10 +114,23 @@
         0 0 44px 0 rgba(217,180,107,0.13),
         0 2px 24px 0 rgba(127,215,255,0.08);
       background:
-        radial-gradient(circle at 16% 20%, rgba(217,180,107,.16) 0%, rgba(217,180,107,0) 44%),
-        radial-gradient(circle at 84% 28%, rgba(127,215,255,.16) 0%, rgba(127,215,255,0) 40%),
-        linear-gradient(180deg, rgba(7,10,16,.82) 0%, rgba(7,10,16,.92) 100%);
+        radial-gradient(circle at 12% 18%, rgba(84,120,255,.20) 0%, rgba(84,120,255,0) 44%),
+        radial-gradient(circle at 88% 26%, rgba(165,113,255,.22) 0%, rgba(165,113,255,0) 42%),
+        linear-gradient(180deg, rgba(6,10,24,.88) 0%, rgba(7,10,18,.94) 100%);
       backdrop-filter:blur(8px) saturate(1.10);
+    }
+
+    .ambient-light{
+      position:absolute;
+      inset:-16% -8%;
+      z-index:0;
+      background:
+        radial-gradient(circle at 18% 24%, rgba(91,147,255,.22) 0%, rgba(91,147,255,0) 44%),
+        radial-gradient(circle at 80% 16%, rgba(166,99,255,.22) 0%, rgba(166,99,255,0) 46%),
+        radial-gradient(circle at 60% 86%, rgba(87,195,255,.16) 0%, rgba(87,195,255,0) 52%);
+      filter:blur(18px);
+      animation:ambientShift 14s ease-in-out infinite;
+      pointer-events:none;
     }
 
     .page-overlay{
@@ -192,10 +147,10 @@
     .inner-orb{
       position:absolute;
       border-radius:50%;
-      filter:blur(10px);
-      opacity:.24;
+      filter:blur(14px);
+      opacity:.34;
       z-index:0;
-      animation:drift 11s ease-in-out infinite;
+      animation:drift 12s ease-in-out infinite;
     }
 
     .inner-orb.orb-a{
@@ -215,9 +170,23 @@
       animation-delay:-3s;
     }
 
+    .inner-orb.orb-c{
+      width:160px;
+      height:160px;
+      background:radial-gradient(circle,#8e70ffa0 0%,#8e70ff00 70%);
+      top:44%;
+      left:38%;
+      animation-delay:-5s;
+    }
+
     @keyframes drift {
       0%,100%{transform:translate3d(0,0,0)}
       50%{transform:translate3d(0,-18px,0)}
+    }
+
+    @keyframes ambientShift {
+      0%,100%{transform:translate3d(0,0,0) scale(1)}
+      50%{transform:translate3d(0,-14px,0) scale(1.03)}
     }
 
     .page-content{
@@ -279,10 +248,20 @@
 
     .nav-row{
       display:flex;
-      justify-content:center;
+      justify-content:space-between;
       align-items:center;
       gap:16px;
       width:100%;
+    }
+
+    .counter{
+      font-family:Arial, Helvetica, sans-serif;
+      color:#e9eef9;
+      font-weight:800;
+      font-size:18px;
+      letter-spacing:.8px;
+      text-align:center;
+      min-width:86px;
     }
 
     .nav-btn{
@@ -315,6 +294,19 @@
       transform:translateY(-1px);
     }
 
+    .nav-btn.is-disabled,
+    .nav-btn.is-disabled:hover{
+      opacity:.45;
+      cursor:not-allowed;
+      pointer-events:none;
+      transform:none;
+      box-shadow:none;
+      filter:none;
+      background:linear-gradient(180deg,#181818 0%, #232323 100%);
+      color:#ffe7b0;
+      border-color:#d9b46b44;
+    }
+
     @media (max-width:980px){
       .page{min-height:auto}
       .page-content{padding:26px 22px 34px}
@@ -339,29 +331,24 @@
       .page-content p{font-size:16px}
       .viewer-footer{padding:12px 14px 16px}
       .nav-btn{min-width:144px;padding:11px 16px;font-size:18px}
-      .backdrop-orb{opacity:.22}
+      .counter{font-size:16px;min-width:74px}
     }
   </style>
 </head>
 <body>
-  <div class="backdrop-orbs" aria-hidden="true">
-    <span class="backdrop-orb"></span>
-    <span class="backdrop-orb"></span>
-    <span class="backdrop-orb"></span>
-    <span class="backdrop-orb"></span>
-  </div>
-
   <div class="shell">
     <main class="viewer">
       <div class="viewer-header">
-        <div class="brand-pill">ANALİZ 10</div>
+        <div class="brand-pill">Bister Bilal Borsa Akademi</div>
         <div class="date" id="publishDate"></div>
       </div>
 
       <div class="page-wrap">
         <section class="page">
+          <div class="ambient-light" aria-hidden="true"></div>
           <div class="inner-orb orb-a" aria-hidden="true"></div>
           <div class="inner-orb orb-b" aria-hidden="true"></div>
+          <div class="inner-orb orb-c" aria-hidden="true"></div>
           <div class="page-overlay"></div>
 
           <article class="page-content">
@@ -380,7 +367,9 @@
 
       <div class="viewer-footer">
         <nav class="nav-row" aria-label="Sayfa gezinmesi">
-          <a class="nav-btn" href="page-2.html">Devam Et →</a>
+          <span class="nav-btn is-disabled" aria-disabled="true">Önceki</span>
+          <div class="counter">1 / 3</div>
+          <a class="nav-btn" href="page-2.html">Sonraki</a>
         </nav>
       </div>
     </main>
